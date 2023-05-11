@@ -6,10 +6,16 @@ export class CreatePostDto {
   @MinLength(3)
   title: string;
 
+  subTitle: string;
+
+  coverImg: string
+
   @IsNotEmpty()
   @IsString()
   @MinLength(3)
   body: string;
 
+  @IsNotEmpty()
+  @IsString()
   userId: string;
 }

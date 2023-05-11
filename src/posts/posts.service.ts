@@ -7,7 +7,17 @@ import { UpdatePostDto } from './dto/update-post.dto';
 export class PostsService {
   constructor(private prismaService: PrismaService) {}
   create(createPostDto: CreatePostDto) {
-    return this.prismaService.post.create({ data: createPostDto });
+    const { title, subTitle, body, userId, coverImg } = createPostDto;
+
+    return this.prismaService.post.create({
+      data: {
+        title,
+        subTitle,
+        body,
+        coverImg,
+        author: { connect: { id: userId } },
+      },
+    });
   }
 
   findAll() {
@@ -28,7 +38,22 @@ export class PostsService {
   }
 
   findOne(id: string) {
-    return this.prismaService.post.findUnique({ where: { id } });
+    return this.prismaService.post.findUnique({ 
+      where: { id },
+      include: {
+        categories: {
+          select: {
+            name: true,
+          },
+        },
+        author: {
+          select: {
+            name: true,
+            userImg: true
+          },
+        },
+      },
+     });
   }
 
   async update(id: string, updatePostDto: UpdatePostDto) {

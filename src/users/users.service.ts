@@ -8,7 +8,16 @@ export class UsersService {
   constructor(private prismaService: PrismaService) {}
 
   create(createUserDto: CreateUserDto) {
-    return this.prismaService.user.create({ data: createUserDto });
+    const { name, email, password, userImg } = createUserDto;
+
+    return this.prismaService.user.create({
+      data: {
+        name,
+        email,
+        password,
+        userImg,
+      },
+    });
   }
 
   findAll() {

@@ -15,6 +15,7 @@ model User {
   name String
   email String @unique
   password String
+  userImg String @default("")
   posts Post[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -31,8 +32,10 @@ model Category {
 model Post {
   id String @id @default(uuid())
   title String
+  subTitle String @default("")
   body String
   userId String
+  coverImg String @default("")
   author User @relation(fields:[userId], references: [id])
   categories Category[]
   createdAt DateTime @default(now())
