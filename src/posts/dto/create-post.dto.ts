@@ -8,7 +8,7 @@ export class CreatePostDto {
 
   subTitle: string;
 
-  coverImg: string
+  coverImg: string;
 
   @IsNotEmpty()
   @IsString()
